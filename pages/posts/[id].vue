@@ -1,12 +1,16 @@
 <template>
-  <div>
-    <div v-if="pending">Завантаження...</div>
-    <div v-else-if="error">{{ error }}</div>
-    <div v-else>
-      <h1>{{ post.title }}</h1>
-      <small>Дата: {{ post.date }}</small>
-      <p>{{ post.content }}</p>
-      <NuxtLink to="/posts">Назад до списку</NuxtLink>
+  <div class="bg-gray-100 min-h-screen py-10">
+    <div class="container mx-auto">
+      <BreadCrumbs />
+
+      <div v-if="pending" class="text-center text-gray-500">Завантаження...</div>
+      <div v-else-if="error" class="text-center text-red-500">{{ error }}</div>
+      <div v-else class="bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ post.title }}</h1>
+        <small class="text-gray-500 block mb-4">Дата: {{ post.date }}</small>
+        <p class="text-gray-700 mb-6">{{ post.content }}</p>
+        <NuxtLink to="/posts" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition">Назад до списку</NuxtLink>
+      </div>
     </div>
   </div>
 </template>
@@ -15,20 +19,12 @@
 import { useRoute } from "vue-router";
 import { computed } from "vue";
 import { usePost } from "@/composables/usePost";
+import BreadCrumbs from "~/components/BreadCrumbs.vue";
 
-//отримання ID з маршруту
 const route = useRoute();
-const { post, pending, error } = usePost(route.params.id);
+const { post, pending, error } = usePost(route.params.id);//отримати id з маршрута
 
-// useHead(() => ({
-//   title: `${post.value?.title} | Блог на Nuxt 3`,
-//   meta: [
-//     { name: "description", content: post.value?.description || "Опис статті" },
-//     { name: "keywords", content: "Nuxt 3, блог, стаття, SEO" },
-//     { property: "og:title", content: post.value?.title || "Стаття" },
-//     { property: "og:description", content: post.value?.description || "Опис статті" },
-//   ]
-// }));
+
 
 useHead(() => ({
   meta: [
