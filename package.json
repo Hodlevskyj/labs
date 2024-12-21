@@ -2,13 +2,20 @@
   "name": "componentlibrary",
   "private": false,
   "version": "0.0.0",
-  "main": "dist/w-components.common.js",
-  "module": "dist/w-components.umd.min.js",
+  "main": "./dist/componentlibrary.umd.js",
+  "module": "./dist/componentlibrary.es.js",
   "author": "Oleh Hodlevskyj",
   "type": "module",
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/componentlibrary.es.js",
+      "require": "./dist/componentlibrary.umd.js"
+    },
+    "./dist/style.css":"./dist/style.css"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
