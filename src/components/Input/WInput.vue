@@ -15,6 +15,7 @@
 
 <script setup>
 import { ref, watch } from "vue";
+import components from "..";
 
 const props = defineProps({
   value: { type: String, default: "" },

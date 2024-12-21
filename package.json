@@ -1,9 +1,9 @@
 {
-  "name": "componentlibrary",
+  "name": "componentlibrarylab10",
   "private": false,
-  "version": "0.0.0",
-  "main": "./dist/componentlibrary.umd.js",
-  "module": "./dist/componentlibrary.es.js",
+  "version": "1.0.1",
+  "main": "./dist/componentlibrarylab10.umd.js",
+  "module": "./dist/componentlibrarylab10.es.js",
   "author": "Oleh Hodlevskyj",
   "type": "module",
   "files": [
@@ -11,14 +11,15 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/componentlibrary.es.js",
-      "require": "./dist/componentlibrary.umd.js"
+      "import": "./dist/componentlibrarylab10.es.js",
+      "require": "./dist/componentlibrarylab10.umd.js"
     },
-    "./dist/style.css":"./dist/style.css"
+    "./dist/style.css": "./dist/style.css"
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:lib": "vite-cli-service build --target lib --name componentlibrarylab10 src/index.js",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
