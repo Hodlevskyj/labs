@@ -7,13 +7,13 @@
           <v-card-title>{{ post.title }}</v-card-title>
           <v-card-text>{{ post.excerpt }}</v-card-text>
           <v-card-actions>
-            <v-btn @click="viewPost(post.id)" color="primary">Read More</v-btn>
+            <v-btn @click="viewPost(post.id)">Read More</v-btn>
           </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
     <v-row justify="center" v-if="hasMorePosts">
-      <v-btn @click="loadMorePosts" color="primary" :loading="isLoading">
+      <v-btn @click="loadMorePosts" :loading="isLoading">
         Load More
       </v-btn>
     </v-row>
