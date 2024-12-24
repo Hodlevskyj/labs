@@ -2,8 +2,6 @@
   <div class="weather-card">
     <h2>{{ city }}</h2>
     <p>Temperature: {{ temp }} °C</p>
-    <p>Temperature Max: {{ temp_max }} °C</p>
-    <p>Temperature Min: {{ temp_min }} °C</p>
     <p>Feels Like: {{ feelsLike }} °C</p>
     <p>Condition: {{ condition }}</p>
     <p>Humidity: {{ humidity }}%</p>

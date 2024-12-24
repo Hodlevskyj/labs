@@ -1,6 +1,6 @@
-<template>
+<!-- <template>
   <div class="forecast-list">
-    <h3>5-Day Forecast</h3>
+    <h3>4-Day Forecast</h3>
     <ul>
       <li v-for="(day, index) in dailyForecast" :key="index">
         {{ day.date }}: {{ day.condition }} - {{ day.temp }} °C, Feels like:
@@ -8,45 +8,56 @@
       </li>
     </ul>
   </div>
+</template> -->
+
+<template>
+  <div class="forecast-list">
+    <h3>4-Day Forecast</h3>
+    <ul v-if="forecast.length > 0">
+      <li v-for="(day, index) in dailyForecast" :key="index">
+        {{ day.date }}: {{ day.condition }} - {{ day.temp }} °C, Feels like:
+        {{ day.feelsLike }} °C
+      </li>
+    </ul>
+    <p v-else>No forecast data available.</p>
+  </div>
 </template>
 
+
+
 <script setup>
-import { defineProps, ref, onMounted } from "vue";
+import { defineProps, ref, watch } from "vue";
 
 const props = defineProps({
-  forecast: Array,
+  forecast: {
+    type: Array,
+    required: true,
+  },
 });
 
 const dailyForecast = ref([]);
 
-const formatForecast = () => {
-  let forecastData = [];
-  let currentDate = "";
-
-  for (let i = 0; i < props.forecast.length; i++) {
-    const day = props.forecast[i];
-    const date = new Date(day.dt * 1000).toLocaleDateString();
-
-    // Якщо це новий день, додаємо його в список
-    if (date !== currentDate) {
-      forecastData.push({
-        date: date,
-        condition: day.weather[0].description,
-        temp: day.main.temp,
-        temp_min: day.main.temp_min,
-        temp_max: day.main.temp_max,
-        feelsLike: day.main.feels_like,
-      });
-      currentDate = date;
-    }
+// Функція для форматування прогнозу
+const formatForecast = (forecastList) => {
+  if (!forecastList || !Array.isArray(forecastList)) {
+    console.error("Invalid forecast data:", forecastList);
+    return [];
   }
 
-  dailyForecast.value = forecastData;
+  const daily = forecastList.filter((entry) => {
+    const time = new Date(entry.dt * 1000).getHours();
+    return time === 12; // Прогноз на 12:00
+  });
+
+  return daily.slice(0, 4).map((entry) => ({
+    date: new Date(entry.dt * 1000).toLocaleDateString(),
+    temp: entry.main.temp,
+    condition: entry.weather[0]?.description || "No data",
+    feelsLike: entry.main.feels_like,
+  }));
 };
 
-onMounted(() => {
-  formatForecast(); // Обробка даних при завантаженні компонента
-});
+
 </script>
 
 <style scoped>
